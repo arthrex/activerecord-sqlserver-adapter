@@ -24,6 +24,9 @@ module ActiveRecord
 
       def drop
         establish_master_connection
+        #Set to single user mode to close all open connections
+        connection.set_single_user_mode configuration['database']
+        #Actually drop it
         connection.drop_database configuration['database']
       end
 

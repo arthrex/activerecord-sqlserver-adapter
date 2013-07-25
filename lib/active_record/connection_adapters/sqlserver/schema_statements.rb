@@ -12,6 +12,10 @@ module ActiveRecord
           execute "IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = #{quote(name)}) DROP DATABASE #{quote_table_name(name)}"
         end
 
+        def set_single_user_mode(name)
+          execute "ALTER DATABASE #{quote_table_name(name)} SET SINGLE_USER WITH ROLLBACK IMMEDIATE"
+        end
+
         def tables(table_type = 'BASE TABLE')
           select_values "SELECT #{lowercase_schema_reflection_sql('TABLE_NAME')} FROM INFORMATION_SCHEMA.TABLES #{"WHERE TABLE_TYPE = '#{table_type}'" if table_type} ORDER BY TABLE_NAME", 'SCHEMA'
         end
