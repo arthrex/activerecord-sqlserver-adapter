@@ -204,7 +204,7 @@ module Arel
 
       # SQLServer Helpers
 
-      def source_with_lock_for_select_statement(o, a)
+      def source_with_lock_for_select_statement(o)
         core = o.cores.first
         source = "FROM #{visit(core.source).strip}" if core.source
         if source && o.lock
