@@ -100,26 +100,26 @@ module Arel
         end
       end
       
-      def visit_Arel_Nodes_UpdateStatement(o, a)
+      def visit_Arel_Nodes_UpdateStatement(o, a = nil)
         if o.orders.any? && o.limit.nil?
           o.limit = Nodes::Limit.new(9223372036854775807)
         end
         super
       end
 
-      def visit_Arel_Nodes_Offset(o, a)
+      def visit_Arel_Nodes_Offset(o, a = nil)
         "WHERE [__rnt].[__rn] > (#{visit o.expr})"
       end
 
-      def visit_Arel_Nodes_Limit(o, a)
+      def visit_Arel_Nodes_Limit(o, a = nil)
         "TOP (#{visit o.expr})"
       end
 
-      def visit_Arel_Nodes_Lock(o, a)
+      def visit_Arel_Nodes_Lock(o, a = nil)
         visit o.expr
       end
       
-      def visit_Arel_Nodes_Ordering(o, a)
+      def visit_Arel_Nodes_Ordering(o, a = nil)
         if o.respond_to?(:direction)
           "#{visit o.expr} #{o.ascending? ? 'ASC' : 'DESC'}"
         else
@@ -127,7 +127,7 @@ module Arel
         end
       end
       
-      def visit_Arel_Nodes_Bin(o, a)
+      def visit_Arel_Nodes_Bin(o, a = nil)
         "#{visit o.expr} #{@connection.cs_equality_operator}"
       end
 
