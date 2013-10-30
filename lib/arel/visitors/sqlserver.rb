@@ -165,7 +165,7 @@ module Arel
         ].compact.join ' '
       end
 
-      def visit_Arel_Nodes_SelectStatementWithOffset(o, a)
+      def visit_Arel_Nodes_SelectStatementWithOffset(o, a = nil)
         core = o.cores.first
         o.limit ||= Arel::Nodes::Limit.new(9223372036854775807)
         orders = rowtable_orders(o)
@@ -181,7 +181,7 @@ module Arel
         ].compact.join ' '
       end
 
-      def visit_Arel_Nodes_SelectStatementForComplexCount(o, a)
+      def visit_Arel_Nodes_SelectStatementForComplexCount(o, a = nil)
         core = o.cores.first
         o.limit.expr = Arel.sql("#{o.limit.expr} + #{o.offset ? o.offset.expr : 0}") if o.limit
         orders = rowtable_orders(o)
