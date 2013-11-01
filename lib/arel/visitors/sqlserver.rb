@@ -90,7 +90,7 @@ module Arel
 
       # SQLServer ToSql/Visitor (Overides)
 
-      def visit_Arel_Nodes_SelectStatement(o)
+      def visit_Arel_Nodes_SelectStatement(o, a)
         if complex_count_sql?(o)
           visit_Arel_Nodes_SelectStatementForComplexCount(o)
         elsif o.offset
@@ -100,26 +100,26 @@ module Arel
         end
       end
       
-      def visit_Arel_Nodes_UpdateStatement(o)
+      def visit_Arel_Nodes_UpdateStatement(o, a = nil)
         if o.orders.any? && o.limit.nil?
           o.limit = Nodes::Limit.new(9223372036854775807)
         end
         super
       end
 
-      def visit_Arel_Nodes_Offset(o)
+      def visit_Arel_Nodes_Offset(o, a = nil)
         "WHERE [__rnt].[__rn] > (#{visit o.expr})"
       end
 
-      def visit_Arel_Nodes_Limit(o)
+      def visit_Arel_Nodes_Limit(o, a = nil)
         "TOP (#{visit o.expr})"
       end
 
-      def visit_Arel_Nodes_Lock(o)
+      def visit_Arel_Nodes_Lock(o, a = nil)
         visit o.expr
       end
       
-      def visit_Arel_Nodes_Ordering(o)
+      def visit_Arel_Nodes_Ordering(o, a = nil)
         if o.respond_to?(:direction)
           "#{visit o.expr} #{o.ascending? ? 'ASC' : 'DESC'}"
         else
@@ -127,7 +127,7 @@ module Arel
         end
       end
       
-      def visit_Arel_Nodes_Bin(o)
+      def visit_Arel_Nodes_Bin(o, a = nil)
         "#{visit o.expr} #{@connection.cs_equality_operator}"
       end
 
@@ -165,7 +165,7 @@ module Arel
         ].compact.join ' '
       end
 
-      def visit_Arel_Nodes_SelectStatementWithOffset(o)
+      def visit_Arel_Nodes_SelectStatementWithOffset(o, a = nil)
         core = o.cores.first
         o.limit ||= Arel::Nodes::Limit.new(9223372036854775807)
         orders = rowtable_orders(o)
@@ -181,7 +181,7 @@ module Arel
         ].compact.join ' '
       end
 
-      def visit_Arel_Nodes_SelectStatementForComplexCount(o)
+      def visit_Arel_Nodes_SelectStatementForComplexCount(o, a = nil)
         core = o.cores.first
         o.limit.expr = Arel.sql("#{o.limit.expr} + #{o.offset ? o.offset.expr : 0}") if o.limit
         orders = rowtable_orders(o)
