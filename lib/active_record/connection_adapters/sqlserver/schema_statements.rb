@@ -347,8 +347,12 @@ module ActiveRecord
         def query_requires_identity_insert?(sql)
           if insert_sql?(sql)
             table_name = get_table_name(sql)
-            id_column = identity_column(table_name)
-            id_column && sql =~ /^\s*(INSERT|EXEC sp_executesql N'INSERT)[^(]+\([^)]*\b(#{id_column.name})\b,?[^)]*\)/i ? quote_table_name(table_name) : false
+            unless table_name.to_s.strip.length == 0
+              id_column = identity_column(table_name)
+              id_column && sql =~ /^\s*(INSERT|EXEC sp_executesql N'INSERT)[^(]+\([^)]*\b(#{id_column.name})\b,?[^)]*\)/i ? quote_table_name(table_name) : false
+            else
+              false
+            end
           else
             false
           end
