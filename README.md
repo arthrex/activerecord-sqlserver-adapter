@@ -88,7 +88,7 @@ ActiveRecord::ConnectionAdapters::SQLServerAdapter.native_binary_database_type =
 
 ####  Setting Unicode Types As Default
 
-By default the adapter will use unicode safe data types for `:string` and `:text` types when defining/changing the schema! This was changed in version 3.1 since it is about time we push better unicode support and since we default to TinyTDS (DBLIB) which supports unicode queries and data. If you choose, you can set the following class attribute in a config/initializers file that will disable this behavior. 
+By default the adapter will use unicode safe data types for `:string` and `:text` types when defining/changing the schema! This was changed in version 3.1 since it is about time we push better unicode support and since we default to TinyTDS (DBLIB) which supports unicode queries and data. If you choose, you can set the following class attribute in a config/initializers file that will disable this behavior.
 
 ```ruby
 # Default

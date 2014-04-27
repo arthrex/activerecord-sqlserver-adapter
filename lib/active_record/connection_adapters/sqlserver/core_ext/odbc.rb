@@ -5,7 +5,7 @@ module ActiveRecord
         module ODBC
 
           module Statement
-            
+
             def finished?
               begin
                 connected?
@@ -14,16 +14,16 @@ module ActiveRecord
                 true
               end
             end
-            
+
           end
 
           module Database
-            
+
             def run_block(*args)
               yield sth = run(*args)
               sth.drop
             end
-            
+
           end
 
         end

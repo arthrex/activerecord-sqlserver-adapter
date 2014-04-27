@@ -3,9 +3,9 @@ module ActiveRecord
     module Sqlserver
       module CoreExt
         module ActiveRecord
-          
+
           extend ActiveSupport::Concern
-          
+
           included do
             class_attribute :coerced_sqlserver_date_columns, :coerced_sqlserver_time_columns
             self.coerced_sqlserver_date_columns = Set.new
@@ -13,7 +13,7 @@ module ActiveRecord
           end
 
           module ClassMethods
-            
+
             def execute_procedure(proc_name, *variables)
               if connection.respond_to?(:execute_procedure)
                 connection.execute_procedure(proc_name,*variables)

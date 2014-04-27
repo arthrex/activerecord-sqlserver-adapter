@@ -63,7 +63,7 @@ module ActiveRecord
       end
 
       class << self
- 
+
         def string_to_binary(value)
           "0x#{value.unpack("H*")[0]}"
         end

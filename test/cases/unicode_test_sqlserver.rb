@@ -2,15 +2,15 @@
 require 'cases/sqlserver_helper'
 
 class UnicodeTestSqlserver < ActiveRecord::TestCase
-  
-  
+
+
   context 'Testing basic saves and unicode limits' do
 
     should 'save and reload simple nchar string' do
       assert nchar_data = SqlServerUnicode.create!(:nchar => 'A')
       assert_equal 'A', SqlServerUnicode.find(nchar_data.id).nchar
     end
-    
+
     should 'save and reload simple nvarchar(max) string' do
       test_string = 'Ken Collins'
       assert nvarcharmax_data = SqlServerUnicode.create!(:nvarchar_max => test_string)
@@ -22,7 +22,7 @@ class UnicodeTestSqlserver < ActiveRecord::TestCase
     end
 
   end
-  
+
   context 'Testing unicode data' do
 
     setup do
@@ -42,7 +42,7 @@ class UnicodeTestSqlserver < ActiveRecord::TestCase
     end
 
   end
-  
-  
-  
+
+
+
 end

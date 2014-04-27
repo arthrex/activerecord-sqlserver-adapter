@@ -1,8 +1,8 @@
 module Arel
  class SelectManager < Arel::TreeManager
-    
+
     AR_CA_SQLSA_NAME = 'ActiveRecord::ConnectionAdapters::SQLServerAdapter'.freeze
-    
+
     # Getting real Ordering objects is very important for us. We need to be able to call #uniq on
     # a colleciton of them reliably as well as using their true object attributes to mutate them
     # to grouping objects for the inner sql during a select statment with an offset/rownumber. So this
@@ -53,12 +53,12 @@ module Arel
         lock_without_sqlserver(locking)
       end
     end
-    
+
     private
-    
+
     def engine_activerecord_sqlserver_adapter?
       @engine.connection && @engine.connection.class.name == AR_CA_SQLSA_NAME
     end
-    
+
   end
 end

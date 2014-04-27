@@ -2,9 +2,9 @@
 
 Query Plan Simple
 =================
-Author: Ken Collins  
-Date: May 22, 2011  
-Summary: Benchmark simple cached query plan reuse in SQL Server.  
+Author: Ken Collins
+Date: May 22, 2011
+Summary: Benchmark simple cached query plan reuse in SQL Server.
 
 System Information
 ------------------

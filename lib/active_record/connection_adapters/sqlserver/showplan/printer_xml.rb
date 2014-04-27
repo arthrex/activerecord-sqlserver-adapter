@@ -3,11 +3,11 @@ module ActiveRecord
     module Sqlserver
       module Showplan
         class PrinterXml
-          
+
           def initialize(result)
             @result = result
           end
-          
+
           def pp
             xml = @result.rows.first.first
             if defined?(Nokogiri)
@@ -16,7 +16,7 @@ module ActiveRecord
               xml
             end
           end
-          
+
         end
 
       end
